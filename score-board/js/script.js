@@ -62,5 +62,3 @@ resetBtn.addEventListener("click", () => {
     input.value = "";
   });
 });
-
-// TODO

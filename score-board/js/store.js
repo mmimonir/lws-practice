@@ -83,15 +83,18 @@ store.subscribe(render);
 // select all dynamicaly added increment form and add event listener
 document.addEventListener("submit", (e) => {
   e.preventDefault();
-  const target = e.target;
-  if (target.matches(".incrementForm")) {
-    const formData = new FormData(target);
-    const incrementValue = parseInt(formData.get("increment"));
-    store.dispatch(increment(incrementValue));
-  } else if (target.matches(".decrementForm")) {
-    const formData = new FormData(target);
-    const decrementValue = parseInt(formData.get("decrement"));
-    store.dispatch(decrement(decrementValue));
+  const nodeLength = e.target.parentNode.parentNode.parentNode.children.length;
+  if (nodeLength == 1) {
+    const target = e.target;
+    if (target.matches(".incrementForm")) {
+      const formData = new FormData(target);
+      const incrementValue = parseInt(formData.get("increment"));
+      store.dispatch(increment(incrementValue));
+    } else if (target.matches(".decrementForm")) {
+      const formData = new FormData(target);
+      const decrementValue = parseInt(formData.get("decrement"));
+      store.dispatch(decrement(decrementValue));
+    }
   }
 });
 

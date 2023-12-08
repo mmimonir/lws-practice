@@ -1,3 +1,5 @@
+import { resetValue, mainStore, reset } from "./store.js";
+
 const DomManipulation = {
   cricket_match: ["MATCH 1"],
 
@@ -52,42 +54,38 @@ const DomManipulation = {
 
   // add new match to dom
   addNewMatch: function () {
-    document.querySelector(".lws-addMatch").addEventListener("click", () => {
-      let selectLastChild = document.querySelector(".all-matches:last-child");
-      if (selectLastChild) {
-        const newChild = selectLastChild.cloneNode(true);
-        this.resetInput(newChild);
-        document.querySelector(".all-matches").appendChild(newChild);
-        selectLastChild = newChild;
-      } else {
-        const copyHtml = document
-          .querySelector(".all-matches")
-          .children[0].cloneNode(true);
-        this.resetInput(copyHtml);
-        document.querySelector(".all-matches").appendChild(copyHtml);
-        selectLastChild = copyHtml;
-      }
-      selectLastChild
-        .querySelector(".lws-delete")
-        .addEventListener("click", (e) => {
-          e.target.parentNode.parentNode.parentNode.remove();
-        });
-      return selectLastChild;
-    });
+    let selectLastChild = document.querySelector(".all-matches:last-child");
+    if (selectLastChild) {
+      const newChild = selectLastChild.cloneNode(true);
+      this.resetInput(newChild);
+      // find input field from newChild and set value to 50
+      newChild.querySelector(".lws-increment").value = 50;
+      document.querySelector(".all-matches").appendChild(newChild);
+      selectLastChild = newChild;
+    } else {
+      const copyHtml = document
+        .querySelector(".all-matches")
+        .children[0].cloneNode(true);
+      this.resetInput(copyHtml);
+      copyHtml.querySelector(".lws-increment").value = 50;
+      copyHtml.querySelector(".lws-decrement").value = 50;
+      document.querySelector(".all-matches").appendChild(copyHtml);
+      selectLastChild = copyHtml;
+    }
+    selectLastChild
+      .querySelector(".lws-delete")
+      .addEventListener("click", (e) => {
+        e.target.parentNode.parentNode.parentNode.remove();
+      });
+    return selectLastChild;
   },
-
   // reset all html input value
   resetInputValueToZero: function () {
-    const resetBtn = document.querySelector(".reset-value");
-    resetBtn.addEventListener("click", () => {
-      document.querySelectorAll("input").forEach((input) => {
-        input.value = "";
-      });
+    mainStore.dispatch(reset());
+    document.querySelectorAll("input").forEach((input) => {
+      input.value = "";
     });
   },
-  // alertTest: () => {
-  //   alert("hello");
-  // },
 };
 
 export default DomManipulation;

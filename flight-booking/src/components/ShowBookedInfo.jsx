@@ -1,6 +1,9 @@
 import ShowTicket from "./ShowTicket";
+import { useSelector } from "react-redux";
 
 const ShowBookedInfo = () => {
+  const flightData = useSelector((state) => state.flights);
+
   return (
     <div className="table-container">
       <table className="booking-table">
@@ -15,7 +18,9 @@ const ShowBookedInfo = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-300/20" id="lws-previewBooked">
-          <ShowTicket />
+          {flightData.map((flight) => (
+            <ShowTicket key={flight.id} flight={flight} />
+          ))}
         </tbody>
       </table>
     </div>

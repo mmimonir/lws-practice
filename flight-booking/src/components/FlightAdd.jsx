@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { add_flight } from "../redux/flight/actions";
+import uuid from "react-uuid";
 
 const FlightAdd = () => {
   const [ticketInfo, setTicketInfo] = useState({});
+  const dispatch = useDispatch();
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -11,13 +15,18 @@ const FlightAdd = () => {
         [name]: value,
       };
     });
-    console.log(ticketInfo);
+  };
+
+  const submitTicketInfo = (e) => {
+    e.preventDefault();
+    dispatch(add_flight({ ...ticketInfo, id: uuid() }));
+    // console.log(ticketInfo);
   };
 
   return (
     <div className="mt-[160px] mx-4 md:mt-[160px] relative">
       <div className="bg-white rounded-md max-w-6xl w-full mx-auto">
-        <form className="first-hero lws-inputform">
+        <form className="first-hero lws-inputform" onSubmit={submitTicketInfo}>
           <div className="des-from">
             <p>Destination From</p>
             <div className="flex flex-row">
@@ -115,7 +124,6 @@ const FlightAdd = () => {
               </select>
             </div>
           </div>
-
           <button className="addCity" type="submit" id="lws-addCity">
             <svg
               width="15px"

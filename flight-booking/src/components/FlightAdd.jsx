@@ -1,4 +1,19 @@
+import React, { useState } from "react";
+
 const FlightAdd = () => {
+  const [ticketInfo, setTicketInfo] = useState({});
+
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setTicketInfo((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+    console.log(ticketInfo);
+  };
+
   return (
     <div className="mt-[160px] mx-4 md:mt-[160px] relative">
       <div className="bg-white rounded-md max-w-6xl w-full mx-auto">
@@ -12,11 +27,12 @@ const FlightAdd = () => {
                 name="from"
                 id="lws-from"
                 required
+                onChange={inputHandler}
               >
                 <option value="" hidden>
                   Please Select
                 </option>
-                <option>Dhaka</option>
+                <option value={"Dhaka"}>Dhaka</option>
                 <option>Sylhet</option>
                 <option>Saidpur</option>
                 <option>Cox's Bazar</option>
@@ -33,6 +49,7 @@ const FlightAdd = () => {
                 name="to"
                 id="lws-to"
                 required
+                onChange={inputHandler}
               >
                 <option value="" hidden>
                   Please Select
@@ -53,6 +70,7 @@ const FlightAdd = () => {
               name="date"
               id="lws-date"
               required
+              onChange={inputHandler}
             />
           </div>
 
@@ -65,6 +83,7 @@ const FlightAdd = () => {
                 name="guests"
                 id="lws-guests"
                 required
+                onChange={inputHandler}
               >
                 <option value="" hidden>
                   Please Select
@@ -86,6 +105,7 @@ const FlightAdd = () => {
                 name="ticketclassName"
                 id="lws-ticketclassName"
                 required
+                onChange={inputHandler}
               >
                 <option value="" hidden>
                   Please Select

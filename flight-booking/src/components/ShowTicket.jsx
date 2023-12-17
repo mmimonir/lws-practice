@@ -1,26 +1,40 @@
-const ShowTicket = () => {
+import { useDispatch } from "react-redux";
+import { remove_flight } from "../redux/flight/actions";
+
+const ShowTicket = ({ flight }) => {
+  const dispatch = useDispatch();
+
+  const handleRemove = (id) => {
+    dispatch(remove_flight(id));
+  };
+
   return (
     <tr className="lws-bookedTable text-black">
       <td className="px-6 py-4">
         <div className="flex items-center space-x-3">
-          <p className="lws-bookedFrom">Dhaka</p>
+          <p className="lws-bookedFrom">{flight.from}</p>
         </div>
       </td>
       <td className="px-6 py-4">
-        <p className="lws-bookedTo">Sylhet</p>
+        <p className="lws-bookedTo">{flight.to}</p>
       </td>
       <td className="px-6 py-4 text-center">
-        <p className="lws-bookedDate">11-01-23</p>
+        <p className="lws-bookedDate">{flight.date}</p>
       </td>
       <td className="px-6 py-4 text-center">
-        <p className="lws-bookedGustes">2</p>
+        <p className="lws-bookedGustes">{flight.guests}</p>
       </td>
       <td className="px-6 py-4 text-center">
-        <span className="lws-bookedclassName"> Business </span>
+        <span className="lws-bookedclassName"> {flight.ticketclassName} </span>
       </td>
       <td className="px-6 py-4 text-center">
         <div className="flex justify-center gap-4">
-          <button className="lws-remove">
+          <button
+            className="lws-remove"
+            onClick={() => {
+              handleRemove(flight.id);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

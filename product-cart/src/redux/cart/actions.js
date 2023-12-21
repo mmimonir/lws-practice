@@ -3,32 +3,40 @@ import {
   DECREASE_CART_ITEM,
   INCREASE_CART_ITEM,
   REMOVE_CART_ITEM,
+  STOCK_DECREASE,
 } from "./actionTypes";
 
-const cartAdd = (product) => {
+export const cartAdd = (product) => {
   return {
     type: CART_ADD,
     payload: product,
   };
 };
 
-const removeCartItem = (id) => {
+export const removeCartItem = (id) => {
   return {
     type: REMOVE_CART_ITEM,
     payload: id,
   };
 };
 
-const increaseCartItem = (id) => {
+export const increaseCartItem = (id) => {
   return {
     type: INCREASE_CART_ITEM,
     payload: id,
   };
 };
 
-const decreaseCartItem = (id) => {
+export const decreaseCartItem = (id) => {
   return {
     type: DECREASE_CART_ITEM,
+    payload: id,
+  };
+};
+
+export const stockDecrease = (id) => {
+  return {
+    type: STOCK_DECREASE,
     payload: id,
   };
 };

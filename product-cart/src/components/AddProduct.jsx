@@ -1,10 +1,30 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/product/actions";
+import uuid from "react-uuid";
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
+  const [input, setInput] = useState([]);
+
+  const inputHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setInput({ ...input, id: uuid() });
+    dispatch(addProduct(input));
+  };
   return (
     <div className="formContainer">
       <h4 className="formTitle">Add New Product</h4>
-      <form className="space-y-4 text-[#534F4F]" id="lws-addProductForm">
+      <form
+        className="space-y-4 text-[#534F4F]"
+        id="lws-addProductForm"
+        onSubmit={submitHandler}
+      >
         <div className="space-y-2">
           <label for="lws-inputName">Product Name</label>
           <input
@@ -12,6 +32,8 @@ const AddProduct = () => {
             id="lws-inputName"
             type="text"
             required
+            onChange={inputHandler}
+            name="name"
           />
         </div>
 
@@ -22,6 +44,8 @@ const AddProduct = () => {
             id="lws-inputCategory"
             type="text"
             required
+            onChange={inputHandler}
+            name="category"
           />
         </div>
 
@@ -32,6 +56,8 @@ const AddProduct = () => {
             id="lws-inputImage"
             type="text"
             required
+            onChange={inputHandler}
+            name="image_url"
           />
         </div>
 
@@ -43,6 +69,8 @@ const AddProduct = () => {
               type="number"
               id="lws-inputPrice"
               required
+              onChange={inputHandler}
+              name="price"
             />
           </div>
 
@@ -53,6 +81,8 @@ const AddProduct = () => {
               type="number"
               id="lws-inputQuantity"
               required
+              onChange={inputHandler}
+              name="quantity"
             />
           </div>
         </div>

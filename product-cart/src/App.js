@@ -3,6 +3,8 @@ import Cart from "./components/Cart";
 import Index from "./components/Index";
 import { useState } from "react";
 import Navbar from "./components/Navbar";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 function App() {
   const [showCart, setShowCart] = useState({ home: true, cart: false });
@@ -15,10 +17,10 @@ function App() {
     }
   };
   return (
-    <>
+    <Provider store={store}>
       <Navbar showNavbarHandler={showNavbarHandler} />
       {showCart.home ? <Index /> : <Cart />}
-    </>
+    </Provider>
   );
 }
 
